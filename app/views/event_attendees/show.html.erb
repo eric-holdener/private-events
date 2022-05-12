@@ -1,15 +1,22 @@
-<% @user.attended_events.each do |event| %>
-  <p>
-    <strong>Event name:</strong>
-    <%= event.title %>
-  </p>
-  <p>
-    <strong>Event date:</strong>
-    <%= event.event_date %>
-  </p>
-  <p>
-    <strong>Event location:</strong>
-    <%= event.event_location %>
-  </p>
-  <p><%= link_to "Show this event", event %></p>
-<% end %>
+<div>
+  <% @user.attended_events.each do |event| %>
+    <% if event.event_date >= Time.now %>
+      <strong>Upcoming Event</strong>
+    <% else %>
+      <strong>Old Event</strong>
+    <% end %>
+    <p>
+      <strong>Event name:</strong>
+      <%= event.title %>
+    </p>
+    <p>
+      <strong>Event date:</strong>
+      <%= event.event_date %>
+    </p>
+    <p>
+      <strong>Event location:</strong>
+      <%= event.event_location %>
+    </p>
+    <p><%= link_to "Show this event", event %></p>
+  <% end %>
+</div>

@@ -3,6 +3,8 @@ class EventAttendeesController < ApplicationController
   # POST /event_attendees or /event_attendees.json
   def show
     @user = current_user
+    # @future_events = @user.attended_events.where('creator = ? AND event_date >= ?', current_user.id, Time.now)
+    # @past_events = @user.attended_events.where('creator = ? AND event_date < ?', current_user.id, Time.now)
   end
 
   def create
