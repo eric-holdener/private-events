@@ -1,32 +1,17 @@
 class EventAttendeesController < ApplicationController
-  before_action :set_event_attendee, only: %i[ show edit update destroy ]
-
-  # GET /event_attendees or /event_attendees.json
-  def index
-    @event_attendees = EventAttendee.find_by(attendee_id: current_user.id)
-  end
-
-  # GET /event_attendees/1 or /event_attendees/1.json
-  def show
-  end
-
-  # GET /event_attendees/new
-  def new
-    @event_attendee = EventAttendee.new
-  end
-
-  # GET /event_attendees/1/edit
-  def edit
-  end
-
+  before_action :authenticate_user!
   # POST /event_attendees or /event_attendees.json
+  def show
+    @user = current_user
+  end
+
   def create
-    puts params
-    @event_attendee = EventAttendee.new(attendee_id: current_user.id, attended_event_id: params[:event_id], attending: params[:attending])
+    @event = Event.find(params[:event_id])
+    @event_attendee = EventAttendee.new(attendee: current_user, attended_event: @event)
 
     respond_to do |format|
       if @event_attendee.save
-        format.html { redirect_to event_attendee_url(@event_attendee), notice: "Event attendee was successfully created." }
+        format.html { redirect_to @event, notice: "You have RSVP'd for this event" }
         format.json { render :show, status: :created, location: @event_attendee }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +24,7 @@ class EventAttendeesController < ApplicationController
   def update
     respond_to do |format|
       if @event_attendee.update(event_attendee_params)
-        format.html { redirect_to event_attendee_url(@event_attendee), notice: "Event attendee was successfully updated." }
+        format.html { redirect_to event_attendee_url(@event_attendee), notice: "Your RSVP has been updated" }
         format.json { render :show, status: :ok, location: @event_attendee }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,15 +42,4 @@ class EventAttendeesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event_attendee
-      @event_attendee = EventAttendee.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def event_attendee_params
-      params.require(:event_attendee).permit(:attendee_id, :attended_event_id, :attending)
-    end
 end

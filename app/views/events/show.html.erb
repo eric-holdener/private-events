@@ -1,3 +1,16 @@
 <p style="color: green"><%= notice %></p>
-
+<strong>Organizer</strong>
+<div>
+  <%= @event.user.first_name%>
+  <p> </p>
+  <%= @event.user.last_name%>
+</div>
 <%= render 'full_event' %>
+<p>RSVP'd</p>
+<% @event.attendees.each do |attendee| %>
+  <div>
+    <p><%= attendee.first_name %></p>
+    <p> </p>
+    <p><%= attendee.last_name %></p>
+  </div>
+<% end %>
