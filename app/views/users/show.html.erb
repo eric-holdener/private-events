@@ -1,0 +1,19 @@
+<h1>My Events</h1>
+
+<div id="events">
+  <% @events.each do |event| %>
+    <p>
+      <strong>Event name:</strong>
+      <%= event.title %>
+    </p>
+    <p>
+      <strong>Event date:</strong>
+      <%= event.event_date %>
+    </p>
+    <p>
+      <strong>Event location:</strong>
+      <%= event.event_location %>
+    </p>
+    <p><%= link_to "Show this event", event %></p>
+  <% end %>
+</div>
