@@ -1,0 +1,11 @@
+<%= form_with(model: event_attendee) do |form| %>
+  <div>
+    <%= form.radio_button :attending, 'yes' %>
+    <%= form.label :attending, 'Yes', :value => 1 %>
+    <%= form.radio_button :attending, 'no' %>
+    <%= form.label :attending, 'no', :value => 2 %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
