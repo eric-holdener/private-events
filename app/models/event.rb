@@ -6,4 +6,7 @@ class Event < ApplicationRecord
   validates :creator, presence: true
   validates :event_location, presence: true
   validates :event_date, presence: true
+
+  scope :past, -> { where('event_date < ?', Time.now) }
+  scope :future, -> { where('event_date >= ?', Time.now) }
 end

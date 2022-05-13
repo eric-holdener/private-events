@@ -3,12 +3,26 @@
 <h1>Events</h1>
 
 <div id="events">
-  <% @events.each do |event| %>
-    <%= render event %>
-    <p>
+  <div>
+    <h2>Upcoming Events</h2>
+    <% @events.future.each do |event| %>
+      <%= render event %>
+      <p>
       <%= link_to "Show this event", event %>
-    </p>
-  <% end %>
+      </p>
+    <% end %>
+  </div>
+
+  <div>
+    <h2>Past Events</h2>
+    <% @events.past.each do |event| %>
+      <%= render event %>
+      <p>
+      <%= link_to "Show this event", event %>
+      </p>
+    <% end %>
+  </div>
+
 </div>
 
 <%= link_to "New event", new_event_path %>
